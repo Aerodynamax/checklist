@@ -1,15 +1,24 @@
 import { FunctionComponent } from "react";
 import { ChecklistItem } from "./ChecklistItem";
+import { ListofItems } from "../App";
 
-export const Checklist: FunctionComponent = () => {
+type Props = { items: ListofItems };
+
+export const Checklist: FunctionComponent<Props> = ({ items }) => {
+  const taskList = items.map((task) => (
+    <ChecklistItem
+      id={task.id}
+      title={task.name}
+      completed={task.completed}
+    ></ChecklistItem>
+  ));
+
   return (
     <>
       <h1 className="heading">Checklist</h1>
 
       <ul role="list" className="card-list" aria-labelledby="list-heading">
-        <ChecklistItem id="item 1" title="Eggs"></ChecklistItem>
-        <ChecklistItem id="item 2" title="Milk"></ChecklistItem>
-        <ChecklistItem id="item 3" title="Bread"></ChecklistItem>
+        {taskList}
       </ul>
 
       <form className="submit-form">

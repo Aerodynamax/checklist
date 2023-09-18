@@ -1,17 +1,21 @@
 import { FunctionComponent } from "react";
 
-type Props = { id: string; title: string };
+type Props = { id: string; title: string; completed: boolean };
 
-export const ChecklistItem: FunctionComponent<Props> = ({ id, title }) => {
+export const ChecklistItem: FunctionComponent<Props> = ({
+  id,
+  title,
+  completed,
+}) => {
   return (
-    <li className="">
+    <li>
       <label className="card fill" htmlFor={id}>
         <div className="card-label-area">
           <input
             className="checkbox"
             id={id}
             type="checkbox"
-            defaultChecked={true}
+            checked={completed}
           />
           <p className="title unselectable">{title}</p>
         </div>
