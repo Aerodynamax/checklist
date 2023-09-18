@@ -12,6 +12,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --surface-text-default: #efeff6;
+  --surface-border-default: #5a5a6d;
+  --accent-background-default: #746bf5;
+  --surface-border-default: #5a5a6d;
+  --surface-background-default: #242432;
+  --surface-text-default: #9ea5ff;
 }
 
 a {
@@ -59,6 +66,13 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+
+    --surface-text-default: #1F2533;
+    --surface-border-default: #BFC6D4;
+    --accent-background-default: #675DF4;
+    --surface-border-default: #BFC6D4;
+    --surface-background-default: #FFF;
+    --surface-text-default: #4740d4;
   }
   a:hover {
     color: #747bff;
