@@ -19,6 +19,7 @@
   --surface-border-default: #5a5a6d;
   --surface-background-default: #242432;
   --surface-text-default: #9ea5ff;
+  --background-default: #2e2e2e;
 }
 
 a {
@@ -71,8 +72,9 @@ button:focus-visible {
     --surface-border-default: #BFC6D4;
     --accent-background-default: #675DF4;
     --surface-border-default: #BFC6D4;
-    --surface-background-default: #FFF;
+    --surface-background-default: #f1f1ff;
     --surface-text-default: #4740d4;
+    --background-default: #F5F5FB;
   }
   a:hover {
     color: #747bff;
