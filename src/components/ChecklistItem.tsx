@@ -15,7 +15,7 @@ export const ChecklistItem: FunctionComponent<Props> = ({
             className="checkbox"
             id={id}
             type="checkbox"
-            checked={completed}
+            defaultChecked={completed}
           />
           <p className="title unselectable">{title}</p>
         </div>

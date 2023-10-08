@@ -10,6 +10,7 @@ export const Checklist: FunctionComponent<Props> = ({ items }) => {
       id={task.id}
       title={task.name}
       completed={task.completed}
+      key={task.id}
     ></ChecklistItem>
   ));
 

@@ -1,9 +1,10 @@
 #root {
   max-width: 1280px;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem;
   text-align: center;
-
+  background-color: var(--background-default);
+  border-radius: 20px;
 }
 
 .fill {
@@ -30,7 +31,18 @@
   color: var(--light-accent-text-default);
 }
 
+.card-list {
+  padding: 0;
+  list-style-type: none;
 
+  max-height: 300px;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
+}
+.card-list * {
+  margin: 1rem 0px 0px 0px;
+  padding: 0%s;
+}
 .card-list {
   list-style-type: none;
   width: 358px;
@@ -54,6 +66,8 @@
   flex: 1 0 0;
   align-self: stretch;
   gap: 12px;
+
+  transform: translateX(-4.5%);
 }
 
 
@@ -74,18 +88,9 @@
   border-radius: 6px;
   width: 2rem;
   height: 2rem;
-  border: 1px solid var(--accent-background-default);
   accent-color: var(--accent-background-default);
 
   transform: translateY(5px);
-}
-
-ul {
-  padding: 0;
-  list-style-type: none;
-}
-ul * {
-  margin-top: 16px;
 }
 
 .card label {
@@ -108,7 +113,9 @@ ul * {
   background: none;
   
   text-align: center;
-  
+}
+.card button * {
+  transform: translateX(-1px) translateY(-1px);
 }
 
 .submit-form {
