@@ -36,12 +36,10 @@
   list-style-type: none;
 
   max-height: 300px;
-  /* overflow-y: auto;
-  overflow-x: hidden; */
 }
 .card-list * {
   margin: 1rem 0px 0px 0px;
-  padding: 0%s;
+  padding: 0%;
 }
 .card-list {
   list-style-type: none;
