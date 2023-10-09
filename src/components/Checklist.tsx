@@ -69,6 +69,7 @@ export const Checklist: FunctionComponent<Props> = ({
               id: uuidv4(),
               name: newItemName,
               completed: false,
+              timeStamp: Date.now(),
             };
 
             onAdd(newData);

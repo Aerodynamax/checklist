@@ -9,6 +9,8 @@ import {
   setDoc,
   deleteDoc,
   updateDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Item, ListofItems } from "./types";
@@ -33,7 +35,6 @@ async function handleDelete(id: string) {
 }
 
 async function handleCheck(item: Item) {
-  console.log(item);
   await updateDoc(
     doc(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items", item.id),
     {
@@ -43,13 +44,20 @@ async function handleCheck(item: Item) {
 }
 
 function App() {
+  const collectionRef = collection(
+    fireStore,
+    "/Checklists/gCZXvFafbCgSThFMFscp/items"
+  );
+
   const [value, loading, error] = useCollection(
-    collection(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items")
+    query(collectionRef, orderBy("timeStamp"))
   );
 
   const firebaseData = value?.docs.map((document) => {
     return document.data();
   }) as ListofItems;
+
+  console.log(firebaseData);
 
   return (
     <>
