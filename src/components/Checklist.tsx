@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useRef } from "react";
 import { ChecklistItem } from "./ChecklistItem";
 import { Item, ListofItems } from "../types";
 import { v4 as uuidv4 } from "uuid";
@@ -29,6 +29,8 @@ export const Checklist: FunctionComponent<Props> = ({
     ></ChecklistItem>
   ));
 
+  const inputElement = useRef<HTMLInputElement>(null);
+
   return (
     <>
       <h1 className="heading">Checklist</h1>
@@ -49,6 +51,7 @@ export const Checklist: FunctionComponent<Props> = ({
           className="input-for-card fill"
           name="text"
           autoComplete="off"
+          ref={inputElement}
           onChange={(event) => {
             setNewItemName(event.target.value);
           }}
@@ -64,7 +67,13 @@ export const Checklist: FunctionComponent<Props> = ({
               timeStamp: Date.now(),
             };
 
-            onAdd(newData);
+            if (inputElement.current) {
+              if (inputElement.current.value != "") {
+                inputElement.current.value = "";
+
+                onAdd(newData);
+              }
+            }
           }}
         >
           <svg
