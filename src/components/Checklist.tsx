@@ -1,28 +1,31 @@
 import { FunctionComponent, useState } from "react";
 import { ChecklistItem } from "./ChecklistItem";
-import { Item, ListofItems } from "../App";
+import { Item, ListofItems } from "../types";
+import { v4 as uuidv4 } from "uuid";
 
-type Props = { items: ListofItems };
+type Props = {
+  items: ListofItems;
+  onAdd: (item: Item) => void;
+  onDelete: (id: string) => void;
+  onCheck: (item: Item) => void;
+};
 
-export const Checklist: FunctionComponent<Props> = ({ items }) => {
-  const [data, setData] = useState(items);
+export const Checklist: FunctionComponent<Props> = ({
+  items,
+  onAdd,
+  onDelete,
+  onCheck,
+}) => {
   const [newItemName, setNewItemName] = useState("");
 
-  function handleDeleteTask(id: string) {
-    setData(
-      data.filter((item) => {
-        return item.id !== id;
-      })
-    );
-  }
-
-  const taskList = data.map((task) => (
+  const taskList = items.map((task: Item) => (
     <ChecklistItem
       id={task.id}
-      title={task.name}
+      name={task.name}
       completed={task.completed}
       key={task.id}
-      onDeleteTask={handleDeleteTask}
+      onDelete={onDelete}
+      onCheck={onCheck}
     ></ChecklistItem>
   ));
 
@@ -55,13 +58,13 @@ export const Checklist: FunctionComponent<Props> = ({ items }) => {
           className="add-card"
           onClick={() => {
             const newData: Item = {
-              id: `item-${
-                parseInt(data[data.length - 1].id.replace("item-", "")) + 1
-              }`,
+              id: uuidv4(),
               name: newItemName,
               completed: false,
+              timeStamp: Date.now(),
             };
-            setData([...data, newData]);
+
+            onAdd(newData);
           }}
         >
           <svg
