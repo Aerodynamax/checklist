@@ -1,4 +1,4 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import { FunctionComponent, useState } from "react";
 import { ChecklistItem } from "./ChecklistItem";
 import { Item, ListofItems } from "../App";
 
@@ -7,10 +7,6 @@ type Props = { items: ListofItems };
 export const Checklist: FunctionComponent<Props> = ({ items }) => {
   const [data, setData] = useState(items);
   const [newItemName, setNewItemName] = useState("");
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   function handleDeleteTask(id: string) {
     setData(
