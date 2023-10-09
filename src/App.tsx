@@ -57,8 +57,6 @@ function App() {
     return document.data();
   }) as ListofItems;
 
-  console.log(firebaseData);
-
   return (
     <>
       {loading && <span>Collection: Loading...</span>}

@@ -24,7 +24,7 @@ export const ChecklistItem: FunctionComponent<Props> = ({
             className="checkbox"
             id={id}
             type="checkbox"
-            defaultChecked={completed}
+            checked={completed}
             onChange={() => {
               onCheck({
                 id: id,
