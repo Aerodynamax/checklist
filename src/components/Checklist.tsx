@@ -16,6 +16,8 @@ export const Checklist: FunctionComponent<Props> = ({ items }) => {
     );
   }
 
+  console.log("Checklist: ", items);
+
   const taskList = data.map((task) => (
     <ChecklistItem
       id={task.id}
