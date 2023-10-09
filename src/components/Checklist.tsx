@@ -1,30 +1,39 @@
 import { FunctionComponent, useState } from "react";
 import { ChecklistItem } from "./ChecklistItem";
-import { Item, ListofItems } from "../App";
+import { Item, ListofItems } from "../types";
 
-type Props = { items: ListofItems };
+function uuidv4() {
+  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+    (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16)
+  );
+}
 
-export const Checklist: FunctionComponent<Props> = ({ items }) => {
-  const [data, setData] = useState(items);
+type Props = {
+  items: ListofItems;
+  onAdd: (item: Item) => void;
+  onDelete: (id: string) => void;
+  onCheck: (item: Item) => void;
+};
+
+export const Checklist: FunctionComponent<Props> = ({
+  items,
+  onAdd,
+  onDelete,
+  onCheck,
+}) => {
   const [newItemName, setNewItemName] = useState("");
 
-  function handleDeleteTask(id: string) {
-    setData(
-      data.filter((item) => {
-        return item.id !== id;
-      })
-    );
-  }
-
-  console.log("Checklist: ", items);
-
-  const taskList = data.map((task) => (
+  const taskList = items.map((task: Item) => (
     <ChecklistItem
       id={task.id}
-      title={task.name}
+      name={task.name}
       completed={task.completed}
       key={task.id}
-      onDeleteTask={handleDeleteTask}
+      onDelete={onDelete}
+      onCheck={onCheck}
     ></ChecklistItem>
   ));
 
@@ -57,13 +66,12 @@ export const Checklist: FunctionComponent<Props> = ({ items }) => {
           className="add-card"
           onClick={() => {
             const newData: Item = {
-              id: `item-${
-                parseInt(data[data.length - 1].id.replace("item-", "")) + 1
-              }`,
+              id: uuidv4(),
               name: newItemName,
               completed: false,
             };
-            setData([...data, newData]);
+
+            onAdd(newData);
           }}
         >
           <svg

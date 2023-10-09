@@ -2,15 +2,16 @@ import "./App.css";
 import { Checklist } from "./components/Checklist";
 import { firebaseApp } from "./firebase";
 
-import { getFirestore, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
-
-export type Item = {
-  id: string;
-  name: string;
-  completed: boolean;
-};
-export type ListofItems = Item[];
+import { Item, ListofItems } from "./types";
 
 // const DATA: ListofItems = [
 //   { id: "item-0", name: "Eggs", completed: true },
@@ -18,25 +19,50 @@ export type ListofItems = Item[];
 //   { id: "item-2", name: "Bread", completed: true },
 // ];
 
+const fireStore = getFirestore(firebaseApp);
+
+async function handleAdd(item: Item) {
+  await setDoc(
+    doc(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items", item.id),
+    item
+  );
+}
+
+async function handleDelete(id: string) {
+  await deleteDoc(doc(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items", id));
+}
+
+async function handleCheck(item: Item) {
+  console.log(item);
+  await updateDoc(
+    doc(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items", item.id),
+    {
+      completed: item.completed,
+    }
+  );
+}
+
 function App() {
   const [value, loading, error] = useCollection(
-    collection(
-      getFirestore(firebaseApp),
-      "/Checklists/gCZXvFafbCgSThFMFscp/items"
-    )
+    collection(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items")
   );
 
-  const firebaseData = value?.docs.map((doc) => {
-    return doc.data();
+  const firebaseData = value?.docs.map((document) => {
+    return document.data();
   }) as ListofItems;
-
-  console.log(firebaseData);
 
   return (
     <>
       {loading && <span>Collection: Loading...</span>}
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {value && <Checklist items={firebaseData || []}></Checklist>}
+      {value && (
+        <Checklist
+          items={firebaseData || []}
+          onAdd={handleAdd}
+          onDelete={handleDelete}
+          onCheck={handleCheck}
+        ></Checklist>
+      )}
 
       <p className="read-the-docs">A simple checklist app written in react</p>
     </>

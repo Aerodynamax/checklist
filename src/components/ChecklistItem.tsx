@@ -1,17 +1,20 @@
 import { FunctionComponent } from "react";
+import { Item } from "../types";
 
 type Props = {
   id: string;
-  title: string;
+  name: string;
   completed: boolean;
-  onDeleteTask: (id: string) => void;
+  onDelete: (id: string) => void;
+  onCheck: (item: Item) => void;
 };
 
 export const ChecklistItem: FunctionComponent<Props> = ({
   id,
-  title,
+  name: title,
   completed,
-  onDeleteTask,
+  onDelete,
+  onCheck,
 }) => {
   return (
     <li className="card-li">
@@ -22,6 +25,13 @@ export const ChecklistItem: FunctionComponent<Props> = ({
             id={id}
             type="checkbox"
             defaultChecked={completed}
+            onChange={() => {
+              onCheck({
+                id: id,
+                name: title,
+                completed: !completed,
+              } as Item);
+            }}
           />
           <p className="title unselectable">{title}</p>
         </div>
@@ -30,7 +40,7 @@ export const ChecklistItem: FunctionComponent<Props> = ({
           type="button"
           className="remove-card"
           onClick={() => {
-            onDeleteTask(id);
+            onDelete(id);
           }}
         >
           <svg
