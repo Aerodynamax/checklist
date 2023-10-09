@@ -1,16 +1,28 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { ChecklistItem } from "./ChecklistItem";
-import { ListofItems } from "../App";
+import { Item, ListofItems } from "../App";
 
 type Props = { items: ListofItems };
 
 export const Checklist: FunctionComponent<Props> = ({ items }) => {
-  const taskList = items.map((task) => (
+  const [data, setData] = useState(items);
+  const [newItemName, setNewItemName] = useState("");
+
+  function handleDeleteTask(id: string) {
+    setData(
+      data.filter((item) => {
+        return item.id !== id;
+      })
+    );
+  }
+
+  const taskList = data.map((task) => (
     <ChecklistItem
       id={task.id}
       title={task.name}
       completed={task.completed}
       key={task.id}
+      onDeleteTask={handleDeleteTask}
     ></ChecklistItem>
   ));
 
@@ -22,15 +34,36 @@ export const Checklist: FunctionComponent<Props> = ({ items }) => {
         {taskList}
       </ul>
 
-      <form className="submit-form">
+      <form
+        className="submit-form"
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
         <input
           type="text"
           id="card-title-input"
           className="input-for-card fill"
           name="text"
           autoComplete="off"
+          onChange={(event) => {
+            setNewItemName(event.target.value);
+          }}
         />
-        <button type="submit" className="add-card">
+        <button
+          type="submit"
+          className="add-card"
+          onClick={() => {
+            const newData: Item = {
+              id: `item-${
+                parseInt(data[data.length - 1].id.replace("item-", "")) + 1
+              }`,
+              name: newItemName,
+              completed: false,
+            };
+            setData([...data, newData]);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

@@ -1,14 +1,20 @@
 import { FunctionComponent } from "react";
 
-type Props = { id: string; title: string; completed: boolean };
+type Props = {
+  id: string;
+  title: string;
+  completed: boolean;
+  onDeleteTask: (id: string) => void;
+};
 
 export const ChecklistItem: FunctionComponent<Props> = ({
   id,
   title,
   completed,
+  onDeleteTask,
 }) => {
   return (
-    <li>
+    <li className="card-li">
       <label className="card fill" htmlFor={id}>
         <div className="card-label-area">
           <input
@@ -20,7 +26,13 @@ export const ChecklistItem: FunctionComponent<Props> = ({
           <p className="title unselectable">{title}</p>
         </div>
 
-        <button type="button" className="remove-card">
+        <button
+          type="button"
+          className="remove-card"
+          onClick={() => {
+            onDeleteTask(id);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
