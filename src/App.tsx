@@ -59,6 +59,8 @@ function App() {
     return document.data();
   }) as ListofItems;
 
+  console.log(document.referrer);
+
   return (
     <>
       {loading && <span>Collection: Loading...</span>}
