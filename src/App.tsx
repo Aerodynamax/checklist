@@ -28,6 +28,8 @@ async function handleAdd(item: Item) {
     doc(fireStore, "/Checklists/gCZXvFafbCgSThFMFscp/items", item.id),
     item
   );
+
+  document.getElementById(item.id)?.scrollIntoView();
 }
 
 async function handleDelete(id: string) {
@@ -56,6 +58,8 @@ function App() {
   const firebaseData = value?.docs.map((document) => {
     return document.data();
   }) as ListofItems;
+
+  console.log(document.referrer);
 
   return (
     <>

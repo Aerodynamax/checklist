@@ -1,10 +1,15 @@
 #root {
   max-width: 1280px;
+
   margin: auto;
   padding: 3rem;
   text-align: center;
+
   background-color: var(--background-default);
   border-radius: 20px;
+}
+#root * {
+  max-width: 100%;
 }
 
 .fill {
@@ -35,16 +40,16 @@
   overflow-x: hidden;
 
   max-height: 350px;
-  min-width: 400px;
-
-  flex-direction: column;
-  align-items: flex-start;
+  width: 400px;
 
   position: relative;
 }
 .card-list > * {
   margin: 1rem 0px 0px 0px;
   padding: 0%;
+}
+.card-list:first-child {
+  margin-top: 0px;
 }
 
 .card {
@@ -79,7 +84,6 @@
 
   flex: 1 0 0;
 
-  
   margin-right: 5px;
   gap: 2rem 0;
 
@@ -89,7 +93,7 @@
 
 .card-label-area {
   display: flex;
-  gap: 15%;
+  gap: 5%;
   font-size: 1.5rem;
   margin: 0%;
   padding: 0%;
